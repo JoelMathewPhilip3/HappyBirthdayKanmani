@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Kanmani 5 ❤️</title>
+    <title>For My Kanmani 6 ❤️</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
@@ -390,6 +390,29 @@ document.querySelectorAll('.back-btn').forEach(btn => btn.addEventListener('clic
             updateProgressBar();
             showStep(1);
         });
+
+        // Music toggle
+let musicPlaying = false;
+const musicBtn = document.getElementById('music-btn');
+
+function toggleMusic() {
+    const audio = document.getElementById('bg-music') || document.getElementById('yt-music');
+    if (!musicPlaying) {
+        audio.play ? audio.play() : audio.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        musicBtn.textContent = '🎵';
+        musicPlaying = true;
+    } else {
+        audio.pause ? audio.pause() : audio.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        musicBtn.textContent = '🔇';
+        musicPlaying = false;
+    }
+}
+
+// Autoplay on first interaction
+document.getElementById('start-btn').addEventListener('click', () => {
+    const audio = document.getElementById('bg-music');
+    if (audio && !musicPlaying) { audio.play(); musicBtn.textContent = '🎵'; musicPlaying = true; }
+}, { once: true });
     </script>
 </body>
 </html>
