@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Kanmani 4 ❤️</title>
+    <title>For My Kanmani 5 ❤️</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
@@ -128,7 +128,11 @@
     </style>
 </head>
 <body>
+    <audio id="bg-music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
     <div id="aurora-background"></div>
+<button id="music-btn" onclick="toggleMusic()" style="position:fixed; bottom:20px; right:20px; z-index:100;" class="btn text-white w-12 h-12 rounded-full text-xl">🔇</button>
     <div id="canvas-container" style="position: fixed; top: 0; left: 0; z-index: 1;"></div>
     
     <div id="app">
