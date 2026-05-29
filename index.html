@@ -152,24 +152,53 @@
                 <button id="next-btn-2" class="anim-child btn text-white py-3 px-10 rounded-full">There's more...</button>
             </div>
 
-            <div id="step3" class="step max-w-4xl p-6 md:p-8 rounded-2xl text-center">
-                <h2 class="anim-child text-4xl md:text-5xl font-bold text-gradient mb-8">A Few Things I Adore About You</h2>
-                <div class="bento-grid">
-                    <div class="anim-child bento-item bento-item-1 p-6 rounded-xl">
-                        <h3 class="text-2xl font-bold text-pink-300 mb-2">✨ Your Unmatched Kindness</h3>
-                        <p class="text-gray-300">The genuine warmth you show to everyone is something truly rare and beautiful.</p>
-                    </div>
-                    <div class="anim-child bento-item p-6 rounded-xl">
-                        <h3 class="text-2xl font-bold text-pink-300 mb-2">😊 That Smile</h3>
-                        <p class="text-gray-300">It's a work of art.</p>
-                    </div>
-                    <div class="anim-child bento-item bento-item-3 p-6 rounded-xl">
-                        <h3 class="text-2xl font-bold text-pink-300 mb-2">🌟 Your Radiant Spirit</h3>
-                        <p class="text-gray-300">Your passion for life is infectious. Being around you makes everything feel more exciting and possible.</p>
-                    </div>
-                </div>
-                <button id="next-btn-3" class="anim-child btn text-white py-3 px-10 rounded-full mt-8">Remember this?</button>
-            </div>
+            <div id="step3" class="step max-w-lg p-8 rounded-2xl text-center">
+    <h2 class="anim-child text-4xl md:text-5xl font-bold text-gradient mb-2">A Few Things I Adore About You</h2>
+    <p class="anim-child text-gray-500 text-sm mb-4" id="sub-counter">1 of 3</p>
+
+    <!-- Dots -->
+    <div class="anim-child flex justify-center gap-2 mb-8">
+        <span id="dot-0" class="block w-2.5 h-2.5 rounded-full bg-pink-400 transition-all duration-300"></span>
+        <span id="dot-1" class="block w-2.5 h-2.5 rounded-full bg-white/20 transition-all duration-300"></span>
+        <span id="dot-2" class="block w-2.5 h-2.5 rounded-full bg-white/20 transition-all duration-300"></span>
+    </div>
+
+    <!-- Sub-page 1 -->
+    <div class="sub-step" id="sub-0">
+        <div class="bento-item p-6 rounded-xl mb-8 text-left">
+            <h3 class="text-2xl font-bold text-pink-300 mb-2">✨ Your Unmatched Kindness</h3>
+            <p class="text-gray-300">The genuine warmth you show to everyone is something truly rare and beautiful.</p>
+        </div>
+        <div class="flex gap-3 justify-center">
+            <button class="btn text-white py-3 px-8 rounded-full opacity-30 cursor-not-allowed" disabled>← Back</button>
+            <button class="btn text-white py-3 px-8 rounded-full" onclick="goToSub(1)">Next →</button>
+        </div>
+    </div>
+
+    <!-- Sub-page 2 -->
+    <div class="sub-step hidden" id="sub-1">
+        <div class="bento-item p-6 rounded-xl mb-8 text-left">
+            <h3 class="text-2xl font-bold text-pink-300 mb-2">😊 That Smile</h3>
+            <p class="text-gray-300">It's a work of art.</p>
+        </div>
+        <div class="flex gap-3 justify-center">
+            <button class="btn text-white py-3 px-8 rounded-full" onclick="goToSub(0)">← Back</button>
+            <button class="btn text-white py-3 px-8 rounded-full" onclick="goToSub(2)">Next →</button>
+        </div>
+    </div>
+
+    <!-- Sub-page 3 -->
+    <div class="sub-step hidden" id="sub-2">
+        <div class="bento-item p-6 rounded-xl mb-8 text-left">
+            <h3 class="text-2xl font-bold text-pink-300 mb-2">🌟 Your Radiant Spirit</h3>
+            <p class="text-gray-300">Your passion for life is infectious. Being around you makes everything feel more exciting and possible.</p>
+        </div>
+        <div class="flex gap-3 justify-center">
+            <button class="btn text-white py-3 px-8 rounded-full" onclick="goToSub(1)">← Back</button>
+            <button id="next-btn-3" class="btn text-white py-3 px-10 rounded-full">Remember this? →</button>
+        </div>
+    </div>
+</div>
 
             <div id="step4" class="step max-w-lg p-8 rounded-2xl text-center">
                 <h2 class="anim-child text-4xl md:text-5xl font-bold text-gradient mb-6">That One Time...</h2>
@@ -201,6 +230,19 @@
             let scene, camera, renderer, hearts = [];
             const canvasContainer = document.getElementById('canvas-container');
 
+            // Sub-page navigation for Step 3
+window.goToSub = function(index) {
+    document.querySelectorAll('.sub-step').forEach((el, i) => {
+        el.classList.toggle('hidden', i !== index);
+    });
+    ['dot-0','dot-1','dot-2'].forEach((id, i) => {
+        const dot = document.getElementById(id);
+        dot.classList.toggle('bg-pink-400', i === index);
+        dot.classList.toggle('bg-white/20', i !== index);
+    });
+    document.getElementById('sub-counter').textContent = `${index + 1} of 3`;
+};
+            
             function initThreeJS() {
                 scene = new THREE.Scene();
                 camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
